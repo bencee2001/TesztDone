@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "9310426e-53f4-484b-86b7-b519e4457020",
+		"name": "API tesztek",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24222341"
+	},
+	"item": [
+		{
+			"name": "NASA API",
+			"item": [
+				{
+					"name": "GET 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('It shoud Pass', ()=>{\r",
+									"    pm.response.to.have.status(200)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "vSkDCfqblDwastgDvew3iezO6NQcu80klV0we2NI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nasa.gov/planetary/apod",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nasa",
+								"gov"
+							],
+							"path": [
+								"planetary",
+								"apod"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET 400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Param with wrong name', ()=>{\r",
+									"    pm.response.to.have.status(400)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "vSkDCfqblDwastgDvew3iezO6NQcu80klV0we2NI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nasa.gov/planetary/apod?cont",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nasa",
+								"gov"
+							],
+							"path": [
+								"planetary",
+								"apod"
+							],
+							"query": [
+								{
+									"key": "cont",
+									"value": null,
+									"description": "This should be \"count\""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Misspelled Route', ()=>{\r",
+									"    pm.response.to.have.status(404)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "vSkDCfqblDwastgDvew3iezO6NQcu80klV0we2NI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nasa.gov/planetary/apd",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nasa",
+								"gov"
+							],
+							"path": [
+								"planetary",
+								"apd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET 200 + Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Pass with 200', ()=>{\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Pass with data check', ()=>{\r",
+									"    const resJson = pm.response.json()\r",
+									"    pm.expect(resJson.copyright).to.be.eq(\"Jose Francisco Hernández\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "vSkDCfqblDwastgDvew3iezO6NQcu80klV0we2NI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.nasa.gov/planetary/apod?date=2023-01-9",
+							"protocol": "https",
+							"host": [
+								"api",
+								"nasa",
+								"gov"
+							],
+							"path": [
+								"planetary",
+								"apod"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2023-01-9"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TranLoc API",
+			"item": [
+				{
+					"name": "TransLoc GET 200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('TransLoc Pass with 200', ()=>{\r",
+									"    pm.response.to.have.status(200)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-rapidapi-key",
+								"value": "2a77b64080mshc0d224ce779f829p13ad54jsnb8804e9d93b8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://transloc-api-1-2.p.rapidapi.com/agencies.json?geo_area=35.80176,-78.64347|35.78061,-78.68218",
+							"protocol": "https",
+							"host": [
+								"transloc-api-1-2",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"agencies.json"
+							],
+							"query": [
+								{
+									"key": "geo_area",
+									"value": "35.80176,-78.64347|35.78061,-78.68218"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TransLoc GET 400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Param with no value', ()=>{\r",
+									"    pm.response.to.have.status(400)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-rapidapi-key",
+								"value": "2a77b64080mshc0d224ce779f829p13ad54jsnb8804e9d93b8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://transloc-api-1-2.p.rapidapi.com/agencies.json?geo_area",
+							"protocol": "https",
+							"host": [
+								"transloc-api-1-2",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"agencies.json"
+							],
+							"query": [
+								{
+									"key": "geo_area",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TransLoc GET 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Misspelled Route', ()=>{\r",
+									"    pm.response.to.have.status(404)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-rapidapi-key",
+								"value": "2a77b64080mshc0d224ce779f829p13ad54jsnb8804e9d93b8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://transloc-api-1-2.p.rapidapi.com/agncies.json?geo_area",
+							"protocol": "https",
+							"host": [
+								"transloc-api-1-2",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"agncies.json"
+							],
+							"query": [
+								{
+									"key": "geo_area",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TransLoc GET 200+Check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Pass with 200', ()=>{\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test('Pass with data check', ()=>{\r",
+									"    const resJson = pm.response.json()\r",
+									"    pm.expect(resJson.data[0].long_name).to.eq(\"GoTriangle\")\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-rapidapi-key",
+								"value": "2a77b64080mshc0d224ce779f829p13ad54jsnb8804e9d93b8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://transloc-api-1-2.p.rapidapi.com/agencies.json?geo_area=35.80176,-78.64347|35.78061,-78.68218",
+							"protocol": "https",
+							"host": [
+								"transloc-api-1-2",
+								"p",
+								"rapidapi",
+								"com"
+							],
+							"path": [
+								"agencies.json"
+							],
+							"query": [
+								{
+									"key": "geo_area",
+									"value": "35.80176,-78.64347|35.78061,-78.68218"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
